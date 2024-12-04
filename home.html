@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="./index.css">
+
+</head>
+<body>
+    <div class="box">
+        <div class="wave -one"></div>
+        <div class="wave -two"></div>
+        <div class="wave -three"></div>
+        <div id="weathercon"><i class="fa-solid fa-sun" style="color:#eccc68"></i></div>
+        <div class="info">
+            <h2 class="location"><i class="fa-solid fa-street-view" style="color:#fff"></i>{%location%}, {%country%}</h2>
+            <p id="date">WED | NOV 24 | 12:07</p>
+            <h1 class="temp">{%tempval%}&deg;C</h1>
+            <h3 class="tempmin-max">Min {%tempmin%}°C | Max {%tempmax%}°C</h3>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to update date and time dynamically
+        const curDate = document.getElementById("date");
+        let weathercon = document.getElementById("weathercon");
+
+        const tempStatus = "{%tempstatus%}";  // This will be replaced by the backend
+
+        // Change icon based on weather status
+        if (tempStatus == "Clear") {
+            weathercon.innerHTML = '<i class="fa-solid fa-sun" style="color:#eccc68"></i>';
+        } else if (tempStatus == "Clouds") {
+            weathercon.innerHTML = '<i class="fa-solid fa-cloud"></i>';
+        } else if (tempStatus == "Rain") {
+            weathercon.innerHTML = '<i class="fa-solid fa-raindrops"></i>';
+        } else {
+            weathercon.innerHTML = '<i class="fa-regular fa-cloud-sun"></i>';
+        }
+
+        // Function to get the current day of the week
+        const getCurrentDay = () => {
+            const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const currentTime = new Date();
+            return weekday[currentTime.getDay()];
+        };
+
+        // Function to get the current time and format it
+        const getCurrentTime = () => {
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const now = new Date();
+            const month = months[now.getMonth()];
+            const date = now.getDate();
+            let hours = now.getHours();
+            let mins = now.getMinutes();
+            let periods = "AM";
+            
+            if (hours > 11) {
+                periods = "PM";
+                if (hours > 12) hours -= 12;
+            }
+            
+            if (mins < 10) {
+                mins = "0" + mins;
+            }
+
+            return `${month} ${date} | ${hours}:${mins} ${periods}`;
+        }
+
+        // Update date and time
+        curDate.innerHTML = getCurrentDay() + " | " + getCurrentTime();
+    </script>
+</body>
+</html>

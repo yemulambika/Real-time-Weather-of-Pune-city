@@ -1,0 +1,14 @@
+{
+  "name": "weatherappnodejs",
+  "version": "1.0.0",
+  "description": "Weather of Pune using Node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ambika Yemul",
+  "license": "ISC",
+  "dependencies": {
+    "requests": "^0.3.0"
+  }
+}
